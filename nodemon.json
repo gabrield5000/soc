@@ -1,0 +1,6 @@
+{
+    "env": {
+        "mLab_db_user": "gabi",
+        "JWT_KEY": "gabi"
+    }
+}
