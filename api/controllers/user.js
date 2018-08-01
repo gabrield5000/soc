@@ -44,6 +44,7 @@ exports.user_signup = (req, res, next) => {
 }
 
 exports.user_login = (req, res, next) => {
+    console.log(req.body);
     User.findOne({ email: req.body.email })
         .exec()
         .then(user => {
