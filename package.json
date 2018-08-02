@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/gabrield5000/soc#readme",
   "dependencies": {
-    "bcrypt": "^3.0.0",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
