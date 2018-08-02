@@ -1,6 +1,6 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const result = require('dotenv').config();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -17,7 +17,7 @@ const options = {
     useNewUrlParser: true
 }
 
-const dbUrl = `mongodb://${process.env.DB_HOST}:${process.env.DB_PASS}@ds129541.mlab.com:29541/gabi`;
+const dbUrl = `mongodb://${process.env.DB_HOST}:${process.env.DB_PASS}@ds129541.mlab.com:29541/${process.env.DB_USER}`;
 
 mongoose.connect(dbUrl, options).then(
     () => { console.log('db conncted') },

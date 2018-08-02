@@ -67,7 +67,7 @@ exports.create = (req, res, next) => {
       });
   }
 
-exports.get_one = (req, res, next) => {
+exports.get = (req, res, next) => {
     Order.findById(req.params.orderId)
       .populate('product')
       .exec()

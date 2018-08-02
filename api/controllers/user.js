@@ -96,6 +96,10 @@ exports.login = (req, res, next) => {
         });
 }
 
+exports.auth = async (req, res, next) => {
+    
+}
+
 exports.delete = (req, res, next) => {
     User.remove({_id: req.params.id})
         .exec()
