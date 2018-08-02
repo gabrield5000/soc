@@ -13,16 +13,19 @@ exports.user_signup = (req, res, next) => {
                     message: 'user exists'
                 });
             } else {
-                bcrypt.hash(req.body.password, 10, (err, hash) => {
-                    if(err) {
-                        return res.status(500).json({
-                            error: err
-                        });
-                    } else {
-                        const user = new User({
-                            email: req.body.email,
-                            password: hash
-                        });
+               // bcrypt.hash(req.body.password, 10, (err, hash) => {
+                  //  if(err) {
+                       // return res.status(500).json({
+                         //   error: err
+                      //  });
+                  // } else {
+                    let user = new User();
+                    user.email = req.body.email
+                    user.setPassword(req.body.password);
+                       // const user = new User({
+                          //  email: req.body.email
+                            // hash: req.body.password
+                     //   });
                         user
                           .save()
                           .then(result => {
@@ -32,19 +35,17 @@ exports.user_signup = (req, res, next) => {
                               })
                           })
                           .catch( err => {
-                              console.log(err);
                               res.status(500).json({ 
                                 error: err
                               });
                           });
-                    }
-                })
+                   // }
+               // })
             }
         }) 
 }
 
 exports.user_login = (req, res, next) => {
-    console.log(req.body);
     User.findOne({ email: req.body.email })
         .exec()
         .then(user => {
@@ -53,40 +54,45 @@ exports.user_login = (req, res, next) => {
                     message: 'Auth faild'
                 });
             }
-        
-            bcrypt.compare(req.body.password, user.password, (err, result) => {
-                if(err) {
-                    return res.status(401).json({
-                        massage: 'Auth failed'
-                    });
-                }
-                if(result) {
-                    const token = jwt.sign(
-                        {
-                          email: user.email,
-                          userId: user._id
-                        }, 
-                        'secret',
-                        {
-                            expiresIn: "1h"
-                        }
-                    );
-                    return res.status(200).json({
-                        massage: 'Auth successful',
-                        token: token
-                    });
-                }
-                res.status(401).json({
-                    massage: 'Auth failed'
-                })
-            });
+
+            let result = user.validPassword( req.body.password ); 
+            console.log(result); 
+            if(!result) {
+                return res.status(401).json({ massage: 'Auth failed' });
+            } else {
+                return res.status(200).json({ massage: 'Auth successful' });
+            }       
+            // bcrypt.compare(req.body.password, user.password, (err, result) => {
+            //     if(err) {
+            //         return res.status(401).json({
+            //             massage: 'Auth failed'
+            //         });
+            //     }
+            //     if(result) {
+            //         const token = jwt.sign(
+            //             {
+            //               email: user.email,
+            //               userId: user._id
+            //             }, 
+            //             'secret',
+            //             {
+            //                 expiresIn: "1h"
+            //             }
+            //         );
+            //         return res.status(200).json({
+            //             massage: 'Auth successful',
+            //             token: token
+            //         });
+            //     }
+            //     res.status(401).json({
+            //         massage: 'Auth failed'
+            //     })
+            // });
 
         })
         .catch( err => {
             console.log(err);
-            res.status(500).json({ 
-              error: err
-            });
+            res.status(500).json({ error: err });
         });
 }
 
