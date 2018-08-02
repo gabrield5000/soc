@@ -6,10 +6,12 @@ const userController = require('../controllers/user');
 const checkAuth = require('../middleware/checkAuth');
 
 
-router.post('/signup', validateBody(schemas.authSchema), userController.user_signup);
+router.post('/signup', validateBody(schemas.authSchema), userController.signup);
 
-router.post("/login",  validateBody(schemas.authSchema), userController.user_login);
+router.post("/login",  validateBody(schemas.authSchema), userController.login);
 
-router.delete('/:userId', checkAuth, userController.user_delete)
+router.post("/profile", userController.auth);
+
+router.delete('/:userId', checkAuth, userController.delete)
 
 module.exports = router;

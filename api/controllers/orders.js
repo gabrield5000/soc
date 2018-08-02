@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Order = require("../models/order");
 const Product = require("../models/product");
 
-exports.get_all = (req, res, next) => {
+exports.list = (req, res, next) => {
     Order.find()
       .select("product quantity _id")
       .populate('product', 'name')
@@ -30,7 +30,7 @@ exports.get_all = (req, res, next) => {
       });
 }
 
-exports.create_one = (req, res, next) => {
+exports.create = (req, res, next) => {
     Product.findById(req.body.productId)
       .then(product => {
         if (!product) {
@@ -91,7 +91,7 @@ exports.get_one = (req, res, next) => {
       });
 };
 
-exports.delete_one = (req, res, next) => {
+exports.delete = (req, res, next) => {
     Order.remove({ _id: req.params.orderId })
       .exec()
       .then(result => {

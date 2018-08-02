@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const  User = require('../models/user');
 
-exports.user_signup = (req, res, next) => {
+exports.signup = (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
         .then(user => {
@@ -45,7 +45,7 @@ exports.user_signup = (req, res, next) => {
         }) 
 }
 
-exports.user_login = (req, res, next) => {
+exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .exec()
         .then(user => {
@@ -96,7 +96,7 @@ exports.user_login = (req, res, next) => {
         });
 }
 
-exports.user_delete = (req, res, next) => {
+exports.delete = (req, res, next) => {
     User.remove({_id: req.params.id})
         .exec()
         .then( res => {
