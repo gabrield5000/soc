@@ -10,7 +10,7 @@ router.get("/", checkAuth, customersController.list);
 
 // router.post("/", checkAuth, customersController.create_one);
 
-router.get("/:id",  checkAuth, customersController.display);
+router.get("/:id",  checkAuth, customersController.get);
 
 router.delete("/:id",  checkAuth, customersController.delete);
 

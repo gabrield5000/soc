@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-const Product = require('../models/product');
+const Product = require('../models/productModel');
 
-exports.get_all =  (req, res, next) => {
+exports.list =  (req, res, next) => {
     Product.find()
         .select( 'name price _id' )
         .exec()
@@ -33,7 +33,7 @@ exports.get_all =  (req, res, next) => {
         });
 }
 
-exports.create_one = (req, res, next) => {
+exports.add = (req, res, next) => {
     console.log(req.body);
     const product = new Product({
         name: req.body.name,
@@ -62,7 +62,7 @@ exports.create_one = (req, res, next) => {
    
 }
 
-exports.get_one = (req, res, next) => {
+exports.get = (req, res, next) => {
     const id = req.params.id;
     Product.findById(id)
         .select( 'name imageUrl price _id' )
@@ -86,7 +86,7 @@ exports.get_one = (req, res, next) => {
         });
 }
 
-exports.update_one = (req, res, next) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
     const updateOps = {};
     for (const ops of req.body) {
@@ -110,7 +110,7 @@ exports.update_one = (req, res, next) => {
   
 }
 
-exports.delete_one = (req, res, next) => {
+exports.delete = (req, res, next) => {
     const id = req.params.productId;
     Product.remove({ _id: id })
       .exec()

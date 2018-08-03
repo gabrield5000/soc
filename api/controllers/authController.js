@@ -2,7 +2,7 @@ require('dotenv').config();
 const mongoose = require("mongoose");
 const jwt = require('jsonwebtoken');
 
-const  User = require('../models/user');
+const  User = require('../models/userModel');
 
 exports.signup = async (req, res, next) => {
     try {

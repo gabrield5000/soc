@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const Order = require("../models/order");
-const Product = require("../models/product");
+const Product = require("../models/productModel");
 
 exports.list = (req, res, next) => {
     Order.find()
@@ -30,7 +30,7 @@ exports.list = (req, res, next) => {
       });
 }
 
-exports.create = (req, res, next) => {
+exports.add = (req, res, next) => {
     Product.findById(req.body.productId)
       .then(product => {
         if (!product) {

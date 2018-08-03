@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const orderRoutes = require('./api/routes/orders');
-const productRoutes = require('./api/routes/products');
-const userRoutes = require('./api/routes/user');
+const productRoutes = require('./api/routes/productRoute');
+const userRoutes = require('./api/routes/userRoute');
 
 
 const options = {
