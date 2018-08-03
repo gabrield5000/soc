@@ -1,12 +1,13 @@
 'use strict'
 
+require('dotenv').config();
 const jwt = require('jsonwebtoken'); 
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
-        const decodeed = jwt.verify(token, 'secret');
-        req.userData = decodeed;
+        const decoded = await jwt.verify(token, process.env.AUTH_SECRET);
+        req.userId = decoded.userId;
         next();
     } catch (error ){
         return res.status(401).json({

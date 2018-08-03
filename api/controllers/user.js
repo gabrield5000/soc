@@ -15,7 +15,7 @@ exports.signup = async (req, res, next) => {
         user.username = req.body.username,
         user.firstname = req.body.firstname,
         user.lastname = req.body.lastname,
-        user.setPassword(req.body.password);
+        user.hash = req.body.password;
         let newUser = await user.save(); 
         const token = jwt.sign(
             {
@@ -31,7 +31,6 @@ exports.signup = async (req, res, next) => {
         res.status(201).json({ massage: 'user created', token: token });
     } catch (error) {
        next(error);
-        // res.status(500).json({ error: err });
     }
 }
 
@@ -41,9 +40,9 @@ exports.login = async (req, res, next) => {
         if(!user) {
             return res.status(401).json({ message: 'Auth faild' });
         }
-        let result = await user.validPassword( req.body.password ); 
+        let result = await user.authenticate( req.body.password ); 
         if(!result) {
-            return res.status(401).json({ massage: 'Auth failed' });
+            return res.status(401).json({ massage: 'wrong password' });
         } else {
             const token = jwt.sign(
                 {
@@ -64,8 +63,21 @@ exports.login = async (req, res, next) => {
 }
 
 exports.auth = async (req, res, next) => {
+    try {
+        let user = await User.findById(req.userId, { password: 0 });
+        if(!user) {
+            return res.status(404).json({ message: 'user no found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).send("There was a problem finding the user.");
+    }
+}
+
+exports.logout = async (req, res, next) => {
     
 }
+
 
 exports.delete = async (req, res, next) => {
     try {

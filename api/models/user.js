@@ -17,13 +17,21 @@ const userSchema = mongoose.Schema({
     salt: String
 });
 
-userSchema.methods.setPassword = function(password) {
-  this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
-};
-userSchema.methods.validPassword = function(password) {
-  let hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
-  return this.hash === hash;
+userSchema.pre('save', function(next) {
+  this.hash = this.encryptPassword(this.hash);
+  next();
+});
+
+userSchema.methods = {
+
+  authenticate: function(password) {
+    return crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
+  },
+
+  encryptPassword: function(password) {
+    this.salt = crypto.randomBytes(16).toString('hex');
+    return crypto.pbkdf2Sync(password, this.salt, 1000, 64, `sha512`).toString(`hex`);
+  }
 };
 
 module.exports = mongoose.model('User', userSchema);
