@@ -15,12 +15,16 @@ module.exports = {
     },
 
     schemas: {
-        authSchema: Joi.object().keys({
-            email:     Joi.string().required().email({ minDomainAtoms: 2 }),
+        signupSchema: Joi.object().keys({
+            email:     Joi.string().email().required(),
             password:  Joi.string().length(8).required(),
             firstname: Joi.string().min(3).required(),
             lastname:  Joi.string().min(3).required(),
-            username:  Joi.string().lowercase().required()
+            username:  Joi.string().min(3).required()
+        }),
+        loginSchema: Joi.object().keys({
+            email:     Joi.string().required().email({ minDomainAtoms: 2 }),
+            password:  Joi.string().length(8).required(),
         })
     }
 }

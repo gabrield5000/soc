@@ -3,14 +3,14 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateBody, schemas } = require('../middleware/checkValider');
+const { validateBody, schemas } = require('../middleware/JoiValidation');
 const userController = require('../controllers/user');
 const checkAuth = require('../middleware/checkAuth');
 
 
-router.post('/signup', validateBody(schemas.authSchema), userController.signup);
+router.post('/signup', validateBody(schemas.signupSchema), userController.signup);
 
-router.post("/login",  validateBody(schemas.authSchema), userController.login);
+router.post("/login",  validateBody(schemas.loginSchema), userController.login);
 
 router.get("/auth", userController.auth);
 
