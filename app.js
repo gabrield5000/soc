@@ -7,9 +7,9 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const orderRoutes = require('./api/routes/orders');
+const orderRoutes = require('./api/routes/orderRoute');
 const productRoutes = require('./api/routes/productRoute');
-const categoryRoutes = require('./api/routes/categoryRoute.js');
+const categoryRoutes = require('./api/routes/categoryRoute');
 const userRoutes = require('./api/routes/userRoute');
 
 
