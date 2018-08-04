@@ -11,7 +11,7 @@ const categoryController = require('../controllers/categoryController');
 
 router.get("/", categoryController.list);
 
-router.post("/",  validateBody(schemas.categorySchema), categoryController.add);
+router.post("/", validateBody(schemas.categorySchema), categoryController.add);
 
 // router.get("/:id", categoryController.get);
 

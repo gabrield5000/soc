@@ -2,7 +2,8 @@
 
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
+const multer = require('multer');   
+const { validateBody, schemas } = require('../middleware/JoiValidation');
 const checkAuth = require('../middleware/checkAuth');
 
 const storage = multer.diskStorage({
@@ -34,12 +35,12 @@ const productController = require('../controllers/productController');
 
 router.get('/', productController.list);
 
-router.post('/', checkAuth, upload.single('Image'), productController.add);
+router.post('/', validateBody(schemas.productSchema), upload.single('Image'), productController.add);
 
 router.get('/:id', productController.get);
 
-router.patch('/:id', checkAuth, productController.update);
+router.patch('/:id', productController.update);
 
-router.delete("/:id", checkAuth, productController.delete);
+router.delete("/:id", productController.delete);
 
 module.exports = router;

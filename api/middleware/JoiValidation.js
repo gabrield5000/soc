@@ -33,13 +33,23 @@ module.exports = {
             category_id: Joi.number().required()
         }),
         productSchema: Joi.object().keys({
-            title: Joi.string().required(), 
-            series: Joi.string(),
-            books: Joi.number(),
-            author: Joi.string().required(),
+            title:       Joi.string().required(), 
+            series:      Joi.string(),
+            book:        Joi.number(),
+            author:      Joi.string().required(),
             description: Joi.string().required(),
-            price: Joi.number().required(),
-            imageUrl: Joi.string().required() 
+            price:       Joi.number().required(),
+            imagePath:   Joi.string().required() 
+        })
+
+        productUpdateSchema: Joi.object().keys({
+            title:       Joi.string(), 
+            series:      Joi.string(),
+            book:        Joi.number(),
+            author:      Joi.string(),
+            description: Joi.string(),
+            price:       Joi.number(),
+            imagePath:   Joi.string() 
         })
     }
 }
