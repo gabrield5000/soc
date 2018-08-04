@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 
 const orderRoutes = require('./api/routes/orders');
 const productRoutes = require('./api/routes/productRoute');
+const categoryRoutes = require('./api/routes/categoryRoute.js');
 const userRoutes = require('./api/routes/userRoute');
 
 
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 
 app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
+app.use('/categories', categoryRoutes);
 app.use('/user', userRoutes);
 
 app.use((req, res, next) => {

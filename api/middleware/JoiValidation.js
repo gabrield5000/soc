@@ -27,6 +27,19 @@ module.exports = {
         loginSchema: Joi.object().keys({
             email:     Joi.string().required().email({ minDomainAtoms: 2 }),
             password:  Joi.string().length(8).required(),
+        }),
+        categorySchema: Joi.object().keys({
+            category:    Joi.string().required(),
+            category_id: Joi.number().required()
+        }),
+        productSchema: Joi.object().keys({
+            title: Joi.string().required(), 
+            series: Joi.string(),
+            books: Joi.number(),
+            author: Joi.string().required(),
+            description: Joi.string().required(),
+            price: Joi.number().required(),
+            imageUrl: Joi.string().required() 
         })
     }
 }

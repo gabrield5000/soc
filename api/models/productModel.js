@@ -1,12 +1,15 @@
 'use strict';
 
 const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-const productSchema = mongoose.Schema({
-    // _id: mongoose.Schema.Types.ObjectId,
-    name: String,
-    price: Number,
+const productSchema = new Schema({
+    title: { type: String, required: true },
+    author: { type: String, required: true },
+    description: { type: String, required: true },
+    price: { type: Number, required: true },
     date: { type: Date, default: Date.now },
+    category: { type: Schema.Types.ObjectId, required: true, ref: 'Category'},
     imageUrl: { type: String, require: true }
 });
 

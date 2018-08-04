@@ -34,9 +34,12 @@ exports.list =  (req, res, next) => {
 }
 
 exports.add = (req, res, next) => {
-    console.log(req.body);
     const product = new Product({
-        name: req.body.name,
+        title: req.body.title, 
+        series: req.body.series,
+        books: req.body.book,
+        author: req.body.author,
+        description: req.body.description,
         price: req.body.price,
         imageUrl: req.file.path
     });
