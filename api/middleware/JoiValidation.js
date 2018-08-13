@@ -29,8 +29,7 @@ module.exports = {
             password:  Joi.string().length(8).required(),
         }),
         categorySchema: Joi.object().keys({
-            category:    Joi.string().required(),
-            category_id: Joi.number().required()
+            category:   Joi.string().required()
         }),
         productSchema: Joi.object().keys({
             title:       Joi.string().required(), 
@@ -40,8 +39,7 @@ module.exports = {
             description: Joi.string().required(),
             price:       Joi.number().required(),
             imagePath:   Joi.string().required() 
-        })
-
+        }),
         productUpdateSchema: Joi.object().keys({
             title:       Joi.string(), 
             series:      Joi.string(),

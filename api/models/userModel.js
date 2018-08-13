@@ -2,8 +2,9 @@
 
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+const { Schema } = mongoose;
 
-const userSchema = mongoose.Schema({
+const userSchema = new Schema({
     date: { type: Date, default: Date.now},
     email: { 
       type: String, 
@@ -14,13 +15,13 @@ const userSchema = mongoose.Schema({
     firstname: { type: String, require: true },
     lastname: { type: String, require: true },
     username: { type: String, require: true },
-    isActive: { type: Boolean, default: true }, 
-    hash: String,
+    isActive: { type: Boolean, default: false }, 
+    password: String,
     salt: String
 });
 
 userSchema.pre('save', function(next) {
-  this.hash = this.encryptPassword(this.hash);
+  this.password = this.encryptPassword(this.password);
   next();
 });
 

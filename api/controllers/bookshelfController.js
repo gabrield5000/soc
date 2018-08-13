@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const Product = require('../models/productModel');
+const  = require('../models/bookshelfModel');
 
 exports.list = async (req, res, next) => {  
     try {
@@ -19,7 +19,7 @@ exports.list = async (req, res, next) => {
                     price:       req.body.price,
                     imagePath:   req.file.path
                 }
-            })
+            }); 
         };
         res.status(200).json(response);
     } catch (error) {
@@ -27,7 +27,7 @@ exports.list = async (req, res, next) => {
     }
 }
 
-exports.add = async (req, res, next) => {
+exports.add = (req, res, next) => {
     try {
         const product = new Product({
             title:       req.body.title, 
@@ -60,7 +60,7 @@ exports.get = async(req, res, next) => {
     }
 }
 
-exports.update = async (req, res, next) => {
+exports.update = (req, res, next) => {
     try {
         const id = req.params.id;
         const updateOps = {};

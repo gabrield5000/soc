@@ -20,7 +20,9 @@ const options = {
     useNewUrlParser: true
 }
 
-const dbUrl = `mongodb://${process.env.DB_HOST}:${process.env.DB_PASS}@ds129541.mlab.com:29541/${process.env.DB_USER}`;
+// mongodb://<dbuser>:<dbpassword>@ds020228.mlab.com:20228/soc
+
+const dbUrl = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds129541.mlab.com:29541/${process.env.DB_HOST}`;
 
 mongoose.connect(dbUrl, options).then(
     () => { console.log('db conncted') },

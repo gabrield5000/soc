@@ -29,8 +29,7 @@ exports.add = async (req, res, next) => {
     try {
         console.log(req.body);
         const category = new Category({
-            category: req.body.category,
-            category_id: req.body.category_id
+            category: req.body.category
         });
         let newCategory = await category.save();
         console.log(newCategory);
