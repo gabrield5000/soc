@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const orderRoutes = require('./api/routes/orderRoute');
 const productRoutes = require('./api/routes/productRoute');
 const categoryRoutes = require('./api/routes/categoryRoute');
-const userRoutes = require('./api/routes/userRoute');
+const authRoutes = require('./api/routes/authRoute');
 
 
 const options = {
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
 app.use('/categories', categoryRoutes);
-app.use('/user', userRoutes);
+app.use('/auth', authRoutes);
 
 app.use((req, res, next) => {
     const error = new Error('Not fund');

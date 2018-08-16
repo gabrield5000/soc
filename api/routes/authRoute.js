@@ -12,9 +12,9 @@ router.post('/signup', validateBody(schemas.signupSchema), authController.signup
 
 router.post("/login", validateBody(schemas.loginSchema), authController.login);
 
-router.get("/auth", checkAuth, authController.auth);
+router.get("/user", checkAuth, authController.auth);
 
-router.get("/logout", authController.logout);
+router.get("/logout", checkAuth, authController.logout);
 
 router.delete('/:id', checkAuth, authController.delete);
 
