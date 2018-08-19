@@ -2,29 +2,23 @@
 
 const User = require('../models/userModel');
 
-exports.find = async (data) => {
-    try {
-        let dataStore = await User.find({email: data});
-        return dataStore;
-    }catch (e) {
-        throw e;
-    }
-};
-
-exports.findOne = async (data) => {
-    try {
-        let dataStore = await User.findOne(data);
-        return dataStore;
-    }catch (e) {
-        throw e;
-    }
-}; 
+// exports.find = async (data) => {
+//     try {
+//         let dataStore = await User.findOne(data);
+//         return dataStore;
+//     }catch (e) {
+//         throw e;
+//     }
+// }; 
 
 exports.addUser = async (data) => {
     try {
+        console.log(data );
         const newUser = new User(data);
         const registerUser = await newUser.save({_id:false});
+        console.log(registerUser );
         return registerUser;
+
     }catch (error) {
         throw error;
     }

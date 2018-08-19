@@ -7,13 +7,16 @@ const userRepository = require('./../repositories/userRepository');
 
 exports.signup = async (req, res, next) => {
     try {
-        let userStore = await userRepository.find(req.body.email);
-        if(userStore) {
+      
+        const userStore = await authRepository.checkExistsUser(req.body.email);
+        console.log(userStore);
+        if(userStore.length > 0) {
+           
             if( userStore.length >= 1 ) {
                 return res.status(409).json({ message: 'user exists' });
             }
         } else {
-            let newUser = await userRepository.addUser(req.body);
+            const newUser = await userRepository.addUser(req.body);
             const token = jwt.sign(
                 {
                     email: newUser.email,

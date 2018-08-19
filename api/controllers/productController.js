@@ -18,6 +18,7 @@ exports.list = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
     try {
+        console.log(req.body);
         const product = await productRepository.add(req.body);
         if(product) {
             res.status(201).json({ massage: 'Created product successfully' });
@@ -49,23 +50,25 @@ exports.update = async (req, res, next) => {
     }
 }
 
-exports.delete = (req, res, next) => {
-    const id = req.params.productId;
-    Product.remove({ _id: id })
-      .exec()
-      .then(result => {
-        res.status(200).json({
-            message: 'Product deleted',
-            request: {
-                type: 'POST',
-                body: { name: 'String', price: 'Number' }
-            }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
-        });
-      });
+exports.delete = async (req, res, next) => {
+    const result = await productRepository.statusChange(req.params.id);
+
+    // const id = req.params.id;
+    // Product.remove({ _id: id })
+    //   .exec()
+    //   .then(result => {
+    //     res.status(200).json({
+    //         message: 'Product deleted',
+    //         request: {
+    //             type: 'POST',
+    //             body: { name: 'String', price: 'Number' }
+    //         }
+    //     });
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     res.status(500).json({
+    //       error: err
+    //     });
+    //   });
   }

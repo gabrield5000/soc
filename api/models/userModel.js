@@ -16,14 +16,15 @@ const userSchema = new Schema({
     firstname: { type: String, require: true },
     lastname: { type: String, require: true },
     username: { type: String, require: true },
-    status: String, 
+    status: { type: Boolean, default: false }, 
     password: String,
     salt: String
 });
 
 userSchema.pre('save', function(next) {
+  console.log(this);
   this.password = this.encryptPassword(this.password);
-  this.status = active;
+  this.status = true;
   next();
 });
 

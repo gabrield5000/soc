@@ -3,8 +3,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const active = 'active';
-
 const productSchema = new Schema({
     title:       { type: String, required: true },
     series:      String,
@@ -13,14 +11,27 @@ const productSchema = new Schema({
     description: { type: String, required: true },
     price:       { type: Number, required: true },
     date:        { type: Date, default: Date.now },
-    category:    { type: Schema.Types.ObjectId, required: true, ref: 'Category'},
+    category:    [{ type: String }],
     imagePath:   { type: String, require: true },
-    status:      String
+    createAt:    { type: Date, default: Date.now },
+    status:      { type: Boolean, default: false }   
 });
 
 productSchema.pre('save', function(next) {
-    this.status = active;
+    this.status = true;
     next();
 });
+
+productSchema.pre('update', function() {
+    console.log(this instanceof mongoose.Query); // true
+    // this.start = Date.now();
+    console.log(this);
+});
+
+// productSchema.pre('find', function() {
+//     console.log(this instanceof mongoose.Query); // true
+//     // this.start = Date.now();
+//     console.log(this);
+// });
 
 module.exports = mongoose.model('Product', productSchema);

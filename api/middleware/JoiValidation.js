@@ -1,10 +1,9 @@
-'use strict';
-
 const Joi = require('joi');
 
 module.exports = {
     validateBody: (schema) => {
         return (req, res, next) => {
+            console.log(req.body);
             const result = Joi.validate(req.body, schema);
             if(result.error) {
                 return res.status(400).json(result.error);
@@ -32,13 +31,13 @@ module.exports = {
             category:   Joi.string().required()
         }),
         productSchema: Joi.object().keys({
-            title:       Joi.string().required(), 
+            title:       Joi.string().min(1).required(),
             series:      Joi.string(),
             book:        Joi.number(),
-            author:      Joi.string().required(),
-            description: Joi.string().required(),
-            price:       Joi.number().required(),
-            imagePath:   Joi.string().required() 
+            author:      Joi.string().min(1).required(),
+            description: Joi.string().min(5).required(),
+            price:       Joi.number().required()
+            // imagePath:   Joi.string() 
         }),
         productUpdateSchema: Joi.object().keys({
             title:       Joi.string(), 

@@ -1,21 +1,23 @@
 'use strict';
-
+const fs = require('fs');
 const Product = require('./../models/productModel');
+
+const inactive = 'inactive';
 
 exports.find = async () => {
     try {
-        const products = await Product.find();
+        const products = await Product.find({ status : "true" });
         const response = {
             count: products.length,
-            books: products.map(doc => {
+            books: products.map(product => {
                 return {
-                    title:       req.body.title, 
-                    series:      req.body.series,
-                    book:        req.body.book,
-                    author:      req.body.author,
-                    description: req.body.description,
-                    price:       req.body.price,
-                    imagePath:   req.file.path
+                    title:       product.title, 
+                    series:      product.series,
+                    book:        product.book,
+                    author:      product.author,
+                    description: product.description,
+                    price:       product.price,
+                    imagePath:   product.path
                 }
             })
         };
@@ -25,9 +27,17 @@ exports.find = async () => {
     }
 }
 
-
-exports.add = async () => {
+exports.add = async (data) => {
     try {
+        console.log(data);
+        const base64String = data.imagePath; 
+        const base64Image = base64String.split(';base64,').pop();
+        const imgname = new Date().getTime().toString();
+        const filePath = `uploads/${imgname}.png`;
+        fs.writeFile(filePath, base64Image, {encoding: 'base64'}, function(err) {
+            console.log('File created');
+        });
+        data.imagePath = filePath;
         const product = new Product(data);
         const addProduct = await product.save({_id:false});
         return addProduct;
@@ -66,10 +76,11 @@ exports.update = async (id,data) => {
     }
 }
 
-exports.userDactive = async (id) => {
+exports.statusChange = async (id) => {
     try {
-        const result = await Product.update({ _id: id }, { $set: updateOps });
-        return result;
+        const product = await Product.findById(id);
+        // product.status = inactive;   
+        return product;
     } catch (error) {
         throw error;
     }
