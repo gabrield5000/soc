@@ -1,10 +1,6 @@
 'use strict';
 
-const mongoose = require("mongoose");
-
-// const Product = require('../models/productModel');
 const productRepository = require('./../repositories/productRepository');
-
 
 exports.list = async (req, res, next) => {  
     try {
@@ -12,14 +8,12 @@ exports.list = async (req, res, next) => {
         res.status(200).json(productsStore);
     } catch (error) {
         throw error
-        // res.status(500).json({ error: error });
     }
 }
 
 exports.add = async (req, res, next) => {
     try {
-        console.log(req.body);
-        const product = await productRepository.add(req.body);
+        const product = await productRepository.add(...req.body);
         if(product) {
             res.status(201).json({ massage: 'Created product successfully' });
         }
@@ -30,6 +24,7 @@ exports.add = async (req, res, next) => {
 
 exports.get = async(req, res, next) => {
     try {
+        console.log(req.params);
         const id = req.params.id;
         const product = await productRepository.findById(id);     
         if(!product) {
@@ -51,24 +46,12 @@ exports.update = async (req, res, next) => {
 }
 
 exports.delete = async (req, res, next) => {
-    const result = await productRepository.statusChange(req.params.id);
-
-    // const id = req.params.id;
-    // Product.remove({ _id: id })
-    //   .exec()
-    //   .then(result => {
-    //     res.status(200).json({
-    //         message: 'Product deleted',
-    //         request: {
-    //             type: 'POST',
-    //             body: { name: 'String', price: 'Number' }
-    //         }
-    //     });
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     res.status(500).json({
-    //       error: err
-    //     });
-    //   });
-  }
+    try {
+        const result = await productRepository.statusChange(req.params.id); 
+        if(!result) {
+            res.status(200).json({ message: 'Product deleted' });
+        }       
+    } catch (error) {
+        throw error;
+    }
+}

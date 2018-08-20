@@ -2,8 +2,6 @@
 const fs = require('fs');
 const Product = require('./../models/productModel');
 
-const inactive = 'inactive';
-
 exports.find = async () => {
     try {
         const products = await Product.find({ status : "true" });
@@ -46,14 +44,6 @@ exports.add = async (data) => {
     }
 }
 
-exports.filter = async () => {
-    try {
-      
-    } catch (error) {
-        throw error;
-    }
-}
-
 exports.findById = async (id) => {
     try {
         const product = await Product.findById(id);     
@@ -78,8 +68,7 @@ exports.update = async (id,data) => {
 
 exports.statusChange = async (id) => {
     try {
-        const product = await Product.findById(id);
-        // product.status = inactive;   
+        const product = await Product.findById(id); 
         return product;
     } catch (error) {
         throw error;

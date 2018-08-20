@@ -47,6 +47,11 @@ module.exports = {
             description: Joi.string(),
             price:       Joi.number(),
             imagePath:   Joi.string() 
+        }),
+        orderSchema: Joi.object().keys({
+            products:    Joi.array().items(Joi.string()),
+            quantity:    Joi.number().min(1).required(),
+            price:       Joi.number().required()
         })
     }
 }
