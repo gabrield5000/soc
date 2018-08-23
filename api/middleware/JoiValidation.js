@@ -3,7 +3,7 @@ const Joi = require('joi');
 module.exports = {
     validateBody: (schema) => {
         return (req, res, next) => {
-            console.log(req.body);
+            // console.log(req.body);
             const result = Joi.validate(req.body, schema);
             if(result.error) {
                 return res.status(400).json(result.error);
@@ -52,6 +52,13 @@ module.exports = {
             products:    Joi.array().items(Joi.string()),
             quantity:    Joi.number().min(1).required(),
             price:       Joi.number().required()
+        }),
+        paymentSchema: Joi.object().keys({
+            orderId:        Joi.string().required(),
+            hash:           Joi.string().required(),
+            provider:       Joi.string().required(),
+            codeProvider:   Joi.number().required(),
+            price:          Joi.number().required()  
         })
     }
 }

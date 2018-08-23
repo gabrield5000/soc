@@ -25,7 +25,7 @@ exports.find = async () => {
     }
 }
 
-exports.add = async (data) => {
+exports.add = async (...data) => {
     try {
         console.log(data);
         const base64String = data.imagePath; 
@@ -53,7 +53,7 @@ exports.findById = async (id) => {
     }
 }
 
-exports.update = async (id,data) => {
+exports.update = async (id,...data) => {
     try {
         const updateOps = {};
         for (const ops of data) {

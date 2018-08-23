@@ -13,7 +13,7 @@ exports.list = async (req, res, next) => {
 
 exports.add = async (req, res, next) => {
     try {
-        const product = await productRepository.add(...req.body);
+        const product = await productRepository.add({...req.body});
         if(product) {
             res.status(201).json({ massage: 'Created product successfully' });
         }
@@ -24,7 +24,6 @@ exports.add = async (req, res, next) => {
 
 exports.get = async(req, res, next) => {
     try {
-        console.log(req.params);
         const id = req.params.id;
         const product = await productRepository.findById(id);     
         if(!product) {

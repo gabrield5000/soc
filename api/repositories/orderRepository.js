@@ -11,9 +11,9 @@ exports.find = async () => {
     }
 }
 
-exports.add = async (...data) => {
+exports.add = async (data) => {
     try {
-        const order = new Order(...data);
+        const order = new Order(data);
         const addOrder = await order.save({_id:false});
         return addOrder;
     } catch (error) {
@@ -24,8 +24,16 @@ exports.add = async (...data) => {
 exports.get = async (id) => {
     try {
         const order = await Order.findById(id).populate('products');   
-        console.log(order);  
        return order;
+    } catch (error) {
+        throw error;
+    }
+}
+
+exports.update = async (id,order) => {
+    try {
+        const updatedOrder = await Order.findOneAndUpdate({ _id: id }, { $set: { ...order }}, { new: true });
+       return updatedOrder;
     } catch (error) {
         throw error;
     }
