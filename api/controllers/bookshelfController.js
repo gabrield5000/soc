@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const  = require('../models/bookshelfModel');
+// const  = require('../models/bookshelfModel');
 
 exports.list = async (req, res, next) => {  
     try {
@@ -19,7 +19,7 @@ exports.list = async (req, res, next) => {
                     price:       req.body.price,
                     imagePath:   req.file.path
                 }
-            }); 
+            }) 
         };
         res.status(200).json(response);
     } catch (error) {

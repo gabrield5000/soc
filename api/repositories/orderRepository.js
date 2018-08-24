@@ -30,11 +30,11 @@ exports.get = async (id) => {
     }
 }
 
-exports.update = async (id,order) => {
-    try {
-        const updatedOrder = await Order.findOneAndUpdate({ _id: id }, { $set: { ...order }}, { new: true });
-       return updatedOrder;
-    } catch (error) {
-        throw error;
-    }
-}
+// exports.update = async (id,order) => {
+//     try {
+//         const updatedOrder = await Order.findOneAndUpdate({ _id: id }, { $set: { ...order }}, { new: true });
+//        return updatedOrder;
+//     } catch (error) {
+//         throw error;
+//     }
+// }

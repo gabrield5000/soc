@@ -28,10 +28,4 @@ productSchema.pre('update', function() {
     console.log(this);
 });
 
-// productSchema.pre('find', function() {
-//     console.log(this instanceof mongoose.Query); // true
-//     // this.start = Date.now();
-//     console.log(this);
-// });
-
 module.exports = mongoose.model('Product', productSchema);

@@ -11,7 +11,6 @@ exports.signup = async (req, res, next) => {
         const userStore = await authRepository.checkExistsUser(req.body.email);
         console.log(userStore);
         if(userStore.length > 0) {
-           
             if( userStore.length >= 1 ) {
                 return res.status(409).json({ message: 'user exists' });
             }

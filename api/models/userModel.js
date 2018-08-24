@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 const active = 'active';
 
 const userSchema = new Schema({
-    date: { type: Date, default: Date.now},
+    date: { type: Date, default: Date.now },
     email: { 
       type: String, 
       require: true, 

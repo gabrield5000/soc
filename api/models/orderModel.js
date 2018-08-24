@@ -29,8 +29,6 @@ orderSchema.pre('save', async function (next) {
 orderSchema.methods = {
     createHash: function(hash) {
         return crypto.randomBytes(16).toString('hex');
-    //   const salt = crypto.randomBytes(16).toString('hex');
-    //   return crypto.pbkdf2Sync(hash, salt, 1000, 64, `sha512`).toString(`hex`);
     }
   };
 
