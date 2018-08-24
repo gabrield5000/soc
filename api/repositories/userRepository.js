@@ -1,24 +1,24 @@
 'use strict';
 
 const User = require('../models/userModel');
+const Profile = require('../models/profileModel');
 
-// exports.find = async (data) => {
-//     try {
-//         let dataStore = await User.findOne(data);
-//         return dataStore;
-//     }catch (e) {
-//         throw e;
-//     }
-// }; 
+exports.find = async (data) => {
+    try {
+        let dataStore = await User.findOne(data);
+        return dataStore;
+    }catch (error) {
+        throw error;
+    }
+}; 
 
 exports.addUser = async (data) => {
     try {
-        console.log(data );
-        const newUser = new User(data);
-        const registerUser = await newUser.save({_id:false});
-        console.log(registerUser );
+        const user = new User(data);
+        user.profile = new Profile({user: user._id}); 
+        await user.profile.save({_id:false});
+        const registerUser = await user.save({_id:false});
         return registerUser;
-
     }catch (error) {
         throw error;
     }

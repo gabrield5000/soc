@@ -7,9 +7,7 @@ const userRepository = require('./../repositories/userRepository');
 
 exports.signup = async (req, res, next) => {
     try {
-      
         const userStore = await authRepository.checkExistsUser(req.body.email);
-        console.log(userStore);
         if(userStore.length > 0) {
             if( userStore.length >= 1 ) {
                 return res.status(409).json({ message: 'user exists' });
@@ -27,7 +25,7 @@ exports.signup = async (req, res, next) => {
                     expiresIn: 60 * 4
                 } 
             );
-            res.status(201).json({ massage: 'user created', token: token });
+            res.status(201).json({ success: true, token: "Bearer " + token });
         }        
     } catch (error) {
         throw error;
@@ -55,10 +53,9 @@ exports.login = async (req, res, next) => {
                     expiresIn: 60 * 4
                 } 
             );
-            return res.status(200).json({ massage: 'Auth successful', token: token });
+            return res.status(200).json({ success: true, token: "Bearer " + token });
         }
     } catch ( error ) {
-    //    res.status(500).json({ error: error });
         throw error;
     }
 }

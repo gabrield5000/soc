@@ -3,7 +3,6 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const { Schema } = mongoose;
-const active = 'active';
 
 const userSchema = new Schema({
     date: { type: Date, default: Date.now },
@@ -18,11 +17,10 @@ const userSchema = new Schema({
     username: { type: String, require: true },
     status: { type: Boolean, default: false }, 
     password: String,
-    salt: String
+    salt: String,
 });
 
 userSchema.pre('save', function(next) {
-  console.log(this);
   this.password = this.encryptPassword(this.password);
   this.status = true;
   next();
