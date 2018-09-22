@@ -68,7 +68,7 @@ exports.auth = async (req, res, next) => {
         }
         res.status(200).json(user);
     } catch (error) {
-        return res.status(500).send("There was a problem finding the user.");
+        return error;
     }
 }
 
