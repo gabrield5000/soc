@@ -1,6 +1,6 @@
 'use strict';
 
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 
@@ -9,9 +9,9 @@ const checkAuth = require('../middleware/checkAuth');
 
 const categoryController = require('../controllers/categoryController');
 
-router.get("/", categoryController.list);
+router.get('/', categoryController.list);
 
-router.post("/", categoryController.add);
+router.post('/', categoryController.add);
 
 // router.get("/:id", categoryController.get);
 

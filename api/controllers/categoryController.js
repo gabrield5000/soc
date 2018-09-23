@@ -1,44 +1,38 @@
 'use strict';
 
-const mongoose = require("mongoose");
-
 const Category = require('../models/categoryModel');
 
 exports.list = async (req, res, next) => {
-    try {
-
-        const categories = await Category.find();
-        console.log(categories);
-        // if( categories.length < 0 ) {
-        //     return res.status(409).json({ message: 'no categories exists' });
-        // }
-        categories = categories.map(category => {
-            console.log(category);
-            return {
-                 category: category.name 
-            };
-        }); 
-        res.status(200).json(categories);
+	try {
+		const categories = await Category.find();
+       
+		// if( categories.length < 0 ) {
+		//     return res.status(409).json({ message: 'no categories exists' });
+		// }
+		categories.map(category => {
+			return {
+				category: category.name 
+			};
+		}); 
+		res.status(200).json(categories);
         
-    } catch (error) {
-        res.status(500).json({ error: error });
-    }
-}
+	} catch (error) {
+		res.status(500).json({ error: error });
+	}
+};
 
 exports.add = async (req, res, next) => {
-    try {
-        console.log(req.body);
-        const category = new Category({
-            category: req.body.category
-        });
-        let newCategory = await category.save();
-        console.log(newCategory);
-        res.status(201).json({ massage: 'Created category successfully'});
+	try {
+		const category = new Category({
+			category: req.body.category
+		});
+		await category.save();
+		res.status(201).json({ massage: 'Created category successfully'});
 
-    } catch (error) {
-        res.status(500).json({ error: error });
-    }
-}
+	} catch (error) {
+		res.status(500).json({ error: error });
+	}
+};
 
 // exports.get = (req, res, next) => {
 //     const id = req.params.id;

@@ -39,7 +39,7 @@ exports.add = (req, res, next) => {
             imagePath:   req.file.path
         });
     
-        const doc = await product.save();
+        await product.save();
         res.status(201).json({ massage: 'Created product successfully' });
 
     } catch (error) {
