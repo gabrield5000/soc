@@ -11,6 +11,8 @@ const orderRoutes = require('./api/routes/orderRoute');
 const productRoutes = require('./api/routes/productRoute');
 const paymentRoutes = require('./api/routes/paymentRoute');
 const categoryRoutes = require('./api/routes/categoryRoute');
+const userRoutes = require('./api/routes/userRoute');
+const socialRoutes = require('./api/routes/socialRoutes');
 const authRoutes = require('./api/routes/authRoute');
 
 
@@ -49,6 +51,8 @@ app.use('/orders', orderRoutes);
 app.use('/products', productRoutes);
 app.use('/payments', paymentRoutes);
 app.use('/categories', categoryRoutes);
+app.use('/users', userRoutes);
+app.use('/social', socialRoutes);
 app.use('/auth', authRoutes);
 
 app.use((req, res, next) => {

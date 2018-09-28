@@ -5,9 +5,12 @@ const router = express.Router();
 
 const socialController = require('../controllers/socialController');
 
-router.get('/invites', socialController.getInvites);
-router.post('/invites', socialController.postInvite);
-router.get('/friends', socialController.getFriends);
-router.post('/friends', socialController.postFriend);
+router.get('/invites', socialController.invites);
+router.get('/friends', socialController.friends);
+router.get('/addInvite/:id', socialController.addInvite);
+router.get('/addFriend/:id', socialController.addFriend);
+router.delete('/removeInvite/:id', socialController.deleteInvite);
+router.delete('/removeFriend/:id', socialController.deleteFriend);
+
 
 module.exports = router;

@@ -1,12 +1,20 @@
 'use strict';
 
 const User = require('../models/userModel');
-const Profile = require('../models/profileModel');
+const Social = require('../models/socialModel');
+// const Profile = require('../models/profileModel');
+
+exports.list = async () => {
+	try {
+		return await User.find();
+	} catch (error) {
+		throw error;
+	}
+};
 
 exports.find = async (data) => {
 	try {
-		let dataStore = await User.findOne(data);
-		return dataStore;
+		return await User.findOne(data);
 	}catch (error) {
 		throw error;
 	}
@@ -15,10 +23,12 @@ exports.find = async (data) => {
 exports.addUser = async (data) => {
 	try {
 		const user = new User(data);
-		user.profile = new Profile({user: user._id}); 
-		await user.profile.save({_id:false});
-		const registerUser = await user.save({_id:false});
-		return registerUser;
+		const userStore = await user.save({_id:false});
+		const social = new Social({user: userStore._id });
+		console.log(social);
+		userStore.social = social._id; 
+		await social.save({_id:false});
+		return await userStore.save({_id:false});
 	}catch (error) {
 		throw error;
 	}
@@ -26,8 +36,7 @@ exports.addUser = async (data) => {
 
 exports.findById = async (id) => {
 	try {
-		const user = await User.findById(id, { password: 0 });
-		return user;    
+		return await User.findById(id, { password: 0 });
 	} catch (error) {
 		throw error;
 	}
@@ -39,13 +48,13 @@ exports.aciveUser = async (id) => {
 		user.isActive = false;
 		return user;
 	} catch (error) {
-        
+		throw error;
 	}
 };
 
 exports.update = async (id, ...data) => {
 	try {
-		return this.Size.findOneAndUpdate({ _id: id }, { $set: { ...data }}, { new: true });
+		return await User.findOneAndUpdate({ _id: id }, { $set: { ...data }}, { new: true });
 	} catch (error) {
 		throw error;
 	}

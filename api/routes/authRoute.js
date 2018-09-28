@@ -8,12 +8,11 @@ const { validateBody, schemas } = require('../middleware/JoiValidation');
 const authController = require('../controllers/authController');
 const checkAuth = require('../middleware/checkAuth');
 
-
 router.post('/signup', validateBody(schemas.signupSchema), authController.signup);
 
 router.post('/login', validateBody(schemas.loginSchema), authController.login);
 
-router.get('/user', checkAuth, authController.auth);
+router.get('/auth', checkAuth, authController.auth);
 
 // router.get('/logout', checkAuth, authController.logout);
 

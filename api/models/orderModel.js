@@ -1,10 +1,6 @@
-'use strict';
-
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const { Schema } = mongoose;
-
-const Product = require('../models/productModel');
 
 const orderSchema = new Schema({
 	payment: { type: Schema.Types.ObjectId, ref: 'Payment' },
@@ -27,7 +23,7 @@ orderSchema.pre('save', async function (next) {
 });
 
 orderSchema.methods = {
-	createHash: function(hash) {
+	createHash: function() {
 		return crypto.randomBytes(16).toString('hex');
 	}
 };

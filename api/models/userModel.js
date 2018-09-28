@@ -17,6 +17,8 @@ const userSchema = new Schema({
 	status: { type: Boolean, default: false },
 	password: String,
 	salt: String,
+	social: { type: Schema.Types.ObjectId, ref: 'Social' },
+	orders: { type: Schema.Types.ObjectId, ref: 'Order' }
 });
 
 userSchema.pre('save', function (next) {
